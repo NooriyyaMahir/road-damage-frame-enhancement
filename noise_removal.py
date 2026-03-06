@@ -1,9 +1,13 @@
 import cv2
+import os
 
-def remove_noise(image):
+in_dir = "02_grayscale"
+out_dir = "03_denoised"
+os.makedirs(out_dir, exist_ok=True)
 
-    median = cv2.medianBlur(image, 5)
+for img_name in os.listdir(in_dir):
+    gray = cv2.imread(f"{in_dir}/{img_name}", 0)
+    denoised = cv2.GaussianBlur(gray, (5, 5), 0)
+    cv2.imwrite(f"{out_dir}/{img_name}", denoised)
 
-    gaussian = cv2.GaussianBlur(median, (5,5), 0)
-
-    return gaussian
+print("Noise removal completed")

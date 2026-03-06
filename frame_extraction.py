@@ -1,25 +1,22 @@
 import cv2
 import os
 
-def extract_frames(video_path, output_folder):
+video_path = "video_1.mp4"
+out_dir = "original_frames"
+os.makedirs(out_dir, exist_ok=True)
 
-    cap = cv2.VideoCapture(video_path)
+cap = cv2.VideoCapture(video_path)
+count = 0
 
-    count = 0
+while cap.isOpened():
+    ret, frame = cap.read()
+    if not ret:
+        break
 
-    while True:
+    if count % 10 == 0:  # save every 10th frame
+        cv2.imwrite(f"{out_dir}/frame_{count}.png", frame)
 
-        ret, frame = cap.read()
+    count += 1
 
-        if not ret:
-            break
-
-        frame_name = os.path.join(output_folder, f"frame_{count}.jpg")
-
-        cv2.imwrite(frame_name, frame)
-
-        count += 1
-
-    cap.release()
-
-    print("Total frames extracted:", count)
+cap.release()
+print("Original frames extracted")
