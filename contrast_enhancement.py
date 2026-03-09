@@ -11,3 +11,4 @@ for img_name in os.listdir(in_dir):
     cv2.imwrite(f"{out_dir}/{img_name}", enhanced)
 
 print("Contrast enhancement completed")
+
