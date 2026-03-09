@@ -41,8 +41,6 @@ Python
 OpenCV – image processing  
 NumPy – numerical computation  
 Matplotlib – visualization  
-PyWavelets – wavelet transform  
-SciPy – statistical analysis
 
 ---
 
