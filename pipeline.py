@@ -29,4 +29,5 @@ def enhance_pipeline(input_folder, output_folder):
 
         save_path = os.path.join(output_folder, file)
 
+
         cv2.imwrite(save_path, sharpened)
