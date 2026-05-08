@@ -30,7 +30,7 @@ titles = [
 # Create figure with 2 rows and 5 columns
 plt.figure(figsize=(20,8))
 
-# ----- FIRST ROW : IMAGES -----
+# FIRST ROW : IMAGES
 for i in range(5):
     plt.subplot(2,5,i+1)
     if i == 0:
@@ -40,7 +40,7 @@ for i in range(5):
     plt.title(titles[i])
     plt.axis('off')
 
-# ----- SECOND ROW : HISTOGRAMS -----
+# SECOND ROW : HISTOGRAMS
 for i in range(5):
     plt.subplot(2,5,i+6)
     plt.hist(hist_images[i].ravel(), bins=256, range=[0,256])
