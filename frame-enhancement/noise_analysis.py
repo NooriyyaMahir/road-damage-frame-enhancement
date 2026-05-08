@@ -2,10 +2,8 @@ import cv2
 import pywt
 import numpy as np
 import os
-from scipy.stats import skew, kurtosis
 
-# Folder containing images
-folder_path = "01_original_frames"   # change this to your folder name
+folder_path = "01_original_frames"  
 
 # Get all files in folder
 image_files = os.listdir(folder_path)
