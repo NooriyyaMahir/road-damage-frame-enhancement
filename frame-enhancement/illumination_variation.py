@@ -3,10 +3,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 
-# -----------------------------------
 # Member 2 : Illumination Analysis
 # CLAHE Contrast Enhancement
-# -----------------------------------
 
 # Image Path
 image_path = r"01_original_frames\frame_100.png"
@@ -24,24 +22,18 @@ if gray is None:
 
 print("Image loaded successfully.")
 
-# -----------------------------------
-# Apply CLAHE (Contrast Limited Adaptive Histogram Equalization)
-# -----------------------------------
 
+# Apply CLAHE
 clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
 clahe_image = clahe.apply(gray)
 
-# -----------------------------------
-# Save Output
-# -----------------------------------
 
+# Save Output
 cv2.imwrite("clahe_output.jpg", clahe_image)
 print("CLAHE enhanced image saved.")
 
-# -----------------------------------
-# Display Image Comparison
-# -----------------------------------
 
+# Display Image Comparison
 plt.figure(figsize=(12,5))
 
 plt.subplot(1,2,1)
@@ -57,10 +49,7 @@ plt.axis('off')
 plt.tight_layout()
 plt.show()
 
-# -----------------------------------
 # Histogram Comparison
-# -----------------------------------
-
 plt.figure(figsize=(12,4))
 
 plt.subplot(1,2,1)
