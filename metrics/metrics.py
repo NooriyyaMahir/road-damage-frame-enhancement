@@ -1,55 +1,41 @@
-def calculate_iou(boxA, boxB):
+import cv2
+import numpy as np
 
-    xA = max(boxA[0], boxB[0])
-    yA = max(boxA[1], boxB[1])
+# Load predicted mask
+pred = cv2.imread("output/morphology/frame_0.jpg", 0)
 
-    xB = min(
-        boxA[0] + boxA[2],
-        boxB[0] + boxB[2]
-    )
+# Load ground truth mask
+gt = cv2.imread("ground_truth/gt_0.jpg", 0)
 
-    yB = min(
-        boxA[1] + boxA[3],
-        boxB[1] + boxB[3]
-    )
+# Resize if needed
+gt = cv2.resize(gt, (pred.shape[1], pred.shape[0]))
 
-    interArea = (
-        max(0, xB - xA) *
-        max(0, yB - yA)
-    )
+# Binary conversion
+_, pred = cv2.threshold(pred, 127, 1, cv2.THRESH_BINARY)
+_, gt = cv2.threshold(gt, 127, 1, cv2.THRESH_BINARY)
 
-    boxAArea = boxA[2] * boxA[3]
-    boxBArea = boxB[2] * boxB[3]
+# Calculate TP, TN, FP, FN
+tp = np.sum((pred == 1) & (gt == 1))
+tn = np.sum((pred == 0) & (gt == 0))
+fp = np.sum((pred == 1) & (gt == 0))
+fn = np.sum((pred == 0) & (gt == 1))
 
-    unionArea = (
-        boxAArea +
-        boxBArea -
-        interArea
-    )
+# Metrics
+accuracy = (tp + tn) / (tp + tn + fp + fn)
 
-    return interArea / (unionArea + 1e-5)
+precision = tp / (tp + fp + 1e-6)
 
+recall = tp / (tp + fn + 1e-6)
 
-def calculate_metrics(TP, FP, FN, TN):
+f1 = (2 * precision * recall) / (precision + recall + 1e-6)
 
-    accuracy = (
-        (TP + TN) /
-        (TP + TN + FP + FN + 1e-5)
-    )
+iou = tp / (tp + fp + fn + 1e-6)
 
-    precision = (
-        TP /
-        (TP + FP + 1e-5)
-    )
+dice = (2 * tp) / ((2 * tp) + fp + fn + 1e-6)
 
-    recall = (
-        TP /
-        (TP + FN + 1e-5)
-    )
-
-    f1_score = (
-        2 * precision * recall /
-        (precision + recall + 1e-5)
-    )
-
-    return accuracy, precision, recall, f1_score
+print("Accuracy :", round(accuracy, 4))
+print("Precision:", round(precision, 4))
+print("Recall   :", round(recall, 4))
+print("F1-score :", round(f1, 4))
+print("IoU      :", round(iou, 4))
+print("Dice     :", round(dice, 4))
