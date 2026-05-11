@@ -85,7 +85,7 @@ else:
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
         # Gaussian Blur
-        blur = cv2.GaussianBlur(gray, (5, 5), 1)
+        blur = cv2.GaussianBlur(gray, (9, 9), 2)
 
         # EDGE DETECTION
         edges = cv2.Canny(blur, 50, 150)
