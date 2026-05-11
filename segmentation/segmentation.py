@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-def segment_damage(enhanced):
+def segment_damage(blur):
 
     # Edge detection
     edges = cv2.Canny(enhanced, 50, 150)
